@@ -3,7 +3,7 @@ sidebar: auto
 ---
 
 <p align="center">
-  <a href="https://github.com/Ahoo-Wang/SmartSql" target="_blank"><img width="100"src="./imgs/SmartSql.png"></a>
+  <a href="https://github.com/Ahoo-Wang/SmartSql" target="_blank"><img width="100"src="./docs/imgs/SmartSql.png"></a>
 </p>
 
 # 简介
