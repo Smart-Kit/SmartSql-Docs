@@ -52,6 +52,7 @@ function getGuideSidebar(groupA, groupB) {
             collapsable: false,
             children: [
                 '',
+                'getting-started',
                 'installation',
                 'quick-use'
             ]

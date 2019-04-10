@@ -6,7 +6,9 @@ SmartSql = MyBatis + Cache(Memory | Redis) + R/W Splitting +Dynamic Repository +
 
 SmartSql 借鉴了MyBatis的思想，使用XML来管理SQL，并且提供了若干个筛选器标签来消除代码层面的各种if/else的判断分支。
 
-SmartSql将管理你的SQL，并且通过筛选标签来维护本来你在代码层面的各种条件判断，使你的代码更加优美。同时SmartSql还提供了以下各种特性(包括但不限于)：
+SmartSql将管理你的SQL，并且通过筛选标签来维护本来你在代码层面的各种条件判断，使你的代码更加优美。
+
+同时SmartSql还提供了以下各种特性(包括但不限于)：
 
 - 动态代理仓储
 - 分布式缓存
@@ -18,6 +20,7 @@ SmartSql将管理你的SQL，并且通过筛选标签来维护本来你在代码
 - 缓存（内存，分布式缓存）
 - 读写分离
 - 代码生成器(<https://github.com/dotnetcore/SmartCode>)
+- 高性能的批量插入
 
 
 ## 为什么选择SmartSql？
@@ -26,7 +29,7 @@ DotNet 体系下大都是Linq系的ORM，Linq很好，消除了开发人员对SQ
 
 ## 那么为什么不是Dapper，或者DbHelper?
 
-Dapper 确实很好，并且又很好的性能，但是会让给你的代码里边
+Dapper 确实很好，并且又很好的性能，但是会让给你的代码里边充斥着SQL和各种判断分支，这些将会使代码维护难以阅读和维护。另外 Dapper 只提供了DataReader到Entity的反序列化功能。而SmartSql提供了大量的特性来提升开发者的效率。
 
 ## Nuget Packages
 
