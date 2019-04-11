@@ -2,7 +2,7 @@
 
 ## Nuget 安装
 
-``` cmd
+``` powershell
 Install-Package SmartSql.TypeHandler
 ```
 

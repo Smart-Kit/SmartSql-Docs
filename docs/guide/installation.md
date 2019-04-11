@@ -2,7 +2,7 @@
 
 ## 安装 SmartSql.Schema 获得智能提示
 
-``` chsarp
+``` powershell
 Install-Package SmartSql.Schema
 ```
 
@@ -11,7 +11,7 @@ Install-Package SmartSql.Schema
 
 ## 安装 SmartSql & 相应的Db驱动，这里以MySql为例
 
-``` chsarp
+``` powershell
 Install-Package SmartSql
 Install-Package MySql.Data
 ```

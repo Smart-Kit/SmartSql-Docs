@@ -2,7 +2,7 @@
 
 ## 安装 SmartSql.Cache.Redis
 
-``` chsarp
+``` powershell
 Install-Package SmartSql.Cache.Redis
 ```
 

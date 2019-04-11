@@ -1,19 +1,13 @@
 module.exports = {
-    plugins: ['@vuepress/back-to-top', '@vuepress/nprogress',
-        [
-            '@vuepress/google-analytics',
-            {
-                'ga': 'UA-122662513-1'
-            }
-        ]
-    ],
     title: 'SmartSql',
     description: '高性能、高生产力，超轻量级的ORM。SmartSql = MyBatis + Cache(Memory | Redis) + ZooKeeper + R/W Splitting +Dynamic Repository',
     head: [
         ['meta', {
             name: 'keywords',
             content: 'SmartSql, MyBatis ,Cache(Memory | Redis) ,ZooKeeper , R/W Splitting , Dynamic Repository,ORM,DotNet,.Net,dotnet core'
-        }]
+        }],
+        ['link', { rel: 'icon', href: `/logo.png` }],
+        ['link', { rel: 'shortcut icon', href: `/favicon.ico` }],
     ],
     lastUpdated: true,
     themeConfig: {
@@ -42,7 +36,15 @@ module.exports = {
             '/guide/': getGuideSidebar('指南', '深入'),
             '/dyrepository/': getDyRepositorySidebar('介绍', '配置')
         }
-    }
+    },
+    plugins: 
+    [
+        ['@vuepress/back-to-top', true],
+        ['@vuepress/medium-zoom', true],
+        ['@vuepress/google-analytics', {
+        ga: 'UA-122662513-1'
+        }]
+    ]
 }
 
 function getGuideSidebar(groupA, groupB) {
