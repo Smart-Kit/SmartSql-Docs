@@ -17,7 +17,7 @@ module.exports = {
     ],
     lastUpdated: true,
     themeConfig: {
-        repo: 'Smart-Kit/SmartSql-Doc',
+        repo: 'Smart-Kit/SmartSql-Docs',
         editLinks: true,
         docsDir: 'docs',
         nav: [
