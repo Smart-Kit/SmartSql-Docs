@@ -1,4 +1,4 @@
-# SmartSql.DyRepository
+# 动态代理仓储
 
 > SmartSql 动态代理仓储，一个高生产力的组件。该组件看似很难懂，实际上仅做了映射Statement,转发请求的功能。但却意义重大。
 

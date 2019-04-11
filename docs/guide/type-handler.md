@@ -1,4 +1,4 @@
-# SmartSql.TypeHandler
+# 类型处理器
 
 ## Nuget 安装
 

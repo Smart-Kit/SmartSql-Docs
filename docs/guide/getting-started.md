@@ -2,7 +2,7 @@
 
 ## 安装
 
-``` chsarp
+``` powershell
 Install-Package SmartSql
 Install-Package SmartSql.Schema
 // 以及相应ADO.NET驱动
@@ -10,7 +10,7 @@ Install-Package SmartSql.Schema
 
 ## 从连接字符串创建SmartSql实例
 
-``` chsarp
+``` csharp
 var smartSqlBuilder = new SmartSqlBuilder()
     .UseDataSource(DbProvider.SQLSERVER, ConnectionString)
     .Build();
@@ -132,7 +132,7 @@ var smartSqlBuilder = new SmartSqlBuilder()
 </SmartSqlMap>
 ```
 
-```chsarp
+```csharp
 var smartSqlBuilder = new SmartSqlBuilder()
     .UseXmlConfig()
     .Build();
@@ -155,7 +155,6 @@ SmartSqlBuilder 的最佳作用域是应用作用域。 可以使用单例模式
 | BeginTransaction  | 开启事务 |
 | CommitTransaction  | 提交事务 |
 | RollbackTransaction  | 回滚事务 |
-
 
 ``` csharp
 var dbSessionFactory = new SmartSqlBuilder()
@@ -196,6 +195,7 @@ var id = DbSession.Execute(new RequestContext
                 }
             });
 ```
+
 ### Query
 
 ``` csharp
@@ -260,6 +260,7 @@ IDbSession 同时提供了CUD扩展函数帮助开发者生成好CUD-SQL，方�
 ``` csharp
 var id = DbSession.Insert<User,long>(userEntity);
 ```
+
 ### Update
 
 ``` csharp
