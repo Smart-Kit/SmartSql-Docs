@@ -69,11 +69,11 @@
 
 ### DbProvider 标签
 
-| 属性           |    说明   |
-| :---------     | --------:|
-| Name  | 名称标识,可用于**Env**标签的DB环境识别 |
-| ParameterPrefix | 参数前缀:[SqlServer:@ ; MySQL:? ; Oracle::] |
-| Type | 类型 |
+| 属性           |    说明   |    是否必填   |
+| :---------     | --------:|--------:|
+| Name  | 名称标识,目前内置了：SqlServer/MySQL/Oracle/PostgreSql/SQLite |是|
+| ParameterPrefix | 参数前缀:[SqlServer:@ ; MySQL:? ; Oracle::] |否|
+| Type | 类型 |否|
 
 ### Write 标签
 
