@@ -7,24 +7,35 @@
 > SmartSql.DyRepository.IRepository<TEntity, TPrimary>
 
 ``` csharp
-    public interface IRepository<TEntity, TPrimary> : IRepository
+    public interface IRepository
     {
-        int Insert(TEntity entity);
-        int Delete(object reqParams);
-        [Statement(Id = "Delete")]
-        int DeleteById([Param("Id")]TPrimary id);
-        int Update(TEntity entity);
-        [Statement(Id = "Update")]
-        int DyUpdate(object dyObj);
-        IEnumerable<TEntity> Query(object reqParams);
-        IEnumerable<TEntity> QueryByPage(object reqParams);
-        [Statement(Execute = ExecuteBehavior.ExecuteScalar)]
-        int GetRecord(object reqParams);
-        TEntity GetEntity(object reqParams);
-        [Statement(Id = "GetEntity")]
-        TEntity GetById([Param("Id")]TPrimary id);
-        [Statement(Execute = ExecuteBehavior.ExecuteScalar)]
-        bool IsExist(object reqParams);
+        ISqlMapper SqlMapper { get; }
+    }
+    /// <summary>
+    /// 泛型仓储接口
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TPrimary"></typeparam>
+    public interface IRepository<TEntity, TPrimary> : IRepository
+        , IInsert<TEntity>, IUpdate<TEntity>, IDelete<TPrimary>,
+        IGetEntity<TEntity, TPrimary>,
+        IGetRecord, IQueryByPage<TEntity>,
+        IQuery<TEntity>, IIsExist
+    {
+
+    }
+    /// <summary>
+    /// 异步泛型仓储接口
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TPrimary"></typeparam>
+    public interface IRepositoryAsync<TEntity, TPrimary> : IRepository
+      , IInsertAsync<TEntity>, IUpdateAsync<TEntity>, IDeleteAsync<TPrimary>,
+        IGetEntityAsync<TEntity, TPrimary>,
+        IGetRecordAsync, IQueryByPageAsync<TEntity>,
+        IQueryAsync<TEntity>, IIsExistAsync
+    {
+
     }
 ```
 
@@ -55,12 +66,13 @@
 > 注入依赖后将动态实现仓储接口，并映射好相应SqlMap
 
 ``` csharp
-    services.AddSmartSql();
-    services.AddRepositoryFactory();
-    services.AddRepositoryFromAssembly((options) =>
-    {
-        options.AssemblyString = "SmartSql.Starter.Repository";
-    });
+            services
+                .AddSmartSql()
+                .AddRepositoryFromAssembly(o =>
+                {
+                    o.AssemblyString = "SmartSql.Sample.AspNetCore";
+                    o.Filter = (type) => type.Namespace == "SmartSql.Sample.AspNetCore.DyRepositories";
+                });
 ```
 
 ## Attribute
@@ -130,15 +142,7 @@
         /// <summary>
         /// 返回DataSet
         /// </summary>
-        GetDataSet = 6，
-        /// <summary>
-        /// 返回 ValueTuple
-        /// </summary>
-        FillMultiple = 7,
-        /// <summary>
-        /// 返回嵌套实体
-        /// </summary>
-        GetNested = 8
+        GetDataSet = 6
     }
 ```
 
@@ -167,4 +171,5 @@
         /// DbDataParameter.Name
         /// </summary>
         public String Name { get; set; }
+        public Type FieldType { get; set; }
 ```

@@ -20,8 +20,8 @@ SmartSql 希望 开发人员更多的接触 Sql ,获得绝对的控制权与安�
 支持，可以通过配置引入多个数据库实例：
 
 ``` csharp
-var sqlServerMapper = MapperContainer.Instance.GetSqlMapper("SmartSqlMapConfig-SqlServer.xml");
-var mySqlMapepr = MapperContainer.Instance.GetSqlMapper("SmartSqlMapConfig-MySql.xml");
+var sqlServerMapper = SmartSqlContainer.Instance.GetSmartSql("SqlServer");
+var mySqlMapepr = SmartSqlContainer.Instance.GetSmartSql("MySql");
 ```
 
 ## SmartSql性能如何？
