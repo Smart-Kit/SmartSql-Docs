@@ -18,8 +18,14 @@ module.exports = {
             name: 'keywords',
             content: 'SmartSql, MyBatis ,Cache(Memory | Redis) ,ZooKeeper , R/W Splitting , Dynamic Repository,ORM,DotNet,.Net,dotnet core'
         }],
-        ['link', { rel: 'icon', href: `/logo.png` }],
-        ['link', { rel: 'shortcut icon', href: `/favicon.ico` }],
+        ['link', {
+            rel: 'icon',
+            href: `/logo.png`
+        }],
+        ['link', {
+            rel: 'shortcut icon',
+            href: `/favicon.ico`
+        }],
     ],
     lastUpdated: true,
     themeConfig: {
@@ -34,19 +40,42 @@ module.exports = {
                 selectText: '选择语言',
                 editLinkText: '在 GitHub 上编辑此页',
                 lastUpdated: '上次更新',
-                nav: [
-                    { text: '指南', link: '/guide/' }
-                    , { text: '配置', link: '/config/' }
-                    , { text: '动态仓储', link: '/dyrepository/' }
-                    , { text: 'FAQ', link: '/faq/' }
-                    , { text: 'SmartCode', link: 'https://github.com/Smart-Kit/SmartCode' }
-                    , { text: 'v3', link: 'https://v3.smartsql.net/' }
-                    ],
+                nav: [{
+                    text: '指南',
+                    link: '/guide/'
+                }, {
+                    text: '配置',
+                    link: '/config/'
+                }, {
+                    text: '动态仓储',
+                    link: '/dyrepository/'
+                }, {
+                    text: 'FAQ',
+                    items: [{
+                            text: '常见问题',
+                            link: '/faq/'
+                        },
+                        {
+                            text: '性能评测',
+                            link: '/faq/performance-test/'
+                        },
+                        {
+                            text: '更新日志',
+                            link: 'https://github.com/dotnetcore/SmartSql/releases'
+                        }
+                    ]
+                }, {
+                    text: 'SmartCode',
+                    link: 'https://github.com/Smart-Kit/SmartCode'
+                }, {
+                    text: 'v3',
+                    link: 'https://v3.smartsql.net/'
+                }],
                 sidebar: {
                     '/guide/': getGuideSidebar('指南', '深入'),
-                    '/config/':['','sqlmap'],
-                    '/dyrepository/': ['','options'],
-                    '/faq/': ['','performance-test']
+                    '/config/': ['', 'sqlmap'],
+                    '/dyrepository/': ['', 'options'],
+                    '/faq/': ['', 'performance-test']
                 }
             },
             '/en/': {
@@ -54,43 +83,50 @@ module.exports = {
                 selectText: 'Languages',
                 editLinkText: 'Edit this page on GitHub',
                 lastUpdated: 'Last Updated',
-                nav: [
-                    { text: 'Guide', link: '/guide/' }
-                    , { text: 'Config Reference', link: '/config/' }
-                    , { text: 'Dynamic Repository', link: '/dyrepository/' }
-                    , { text: 'FAQ', link: '/faq/' }
-                    , { text: 'SmartCode', link: 'https://github.com/Smart-Kit/SmartCode' }
-                    , { text: 'v3', link: 'https://v3.smartsql.net/' }
-                    ],
+                nav: [{
+                    text: 'Guide',
+                    link: '/guide/'
+                }, {
+                    text: 'Config Reference',
+                    link: '/config/'
+                }, {
+                    text: 'Dynamic Repository',
+                    link: '/dyrepository/'
+                }, {
+                    text: 'FAQ',
+                    link: '/faq/'
+                }, {
+                    text: 'SmartCode',
+                    link: 'https://github.com/Smart-Kit/SmartCode'
+                }, {
+                    text: 'v3',
+                    link: 'https://v3.smartsql.net/'
+                }],
                 sidebar: {
                     '/guide/': getGuideSidebar('Guide', 'Advanced'),
-                    '/config/':['','sqlmap'],
-                    '/dyrepository/': ['','options'],
-                    '/faq/': ['','performance-test']
+                    '/config/': ['', 'sqlmap'],
+                    '/dyrepository/': ['', 'options'],
+                    '/faq/': ['', 'performance-test']
                 }
             }
         }
     },
-    plugins:
-        [
-            ['@vuepress/back-to-top', true],
-            ['@vuepress/medium-zoom', true],
-            ['@vuepress/google-analytics', {
-                ga: 'UA-122662513-1'
-            }]
-        ]
+    plugins: [
+        ['@vuepress/back-to-top', true],
+        ['@vuepress/medium-zoom', true],
+        ['@vuepress/google-analytics', {
+            ga: 'UA-122662513-1'
+        }]
+    ]
 }
 
 function getGuideSidebar(groupA, groupB) {
-    return [
-        {
+    return [{
             title: groupA,
             collapsable: false,
             children: [
                 '',
-                'getting-started',
-                'installation',
-                'quick-use'
+                'getting-started'
             ]
         },
         {

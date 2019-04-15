@@ -2,9 +2,27 @@
 
 ## 安装
 
+### 通过Nuget 安装 SmartSql.Schema 获得智能提示
+
+``` powershell
+Install-Package SmartSql.Schema
+```
+
+### 全局安装 Schema 获得智能提示
+
+下载以下俩个文件至 Microsoft Visual Studio XSD安装目录
+
+> VS2017目录地址：\Microsoft Visual Studio\2017\Enterprise\Xml\Schemas
+
+| 文件      |   地址   |
+| --------  | -----:  |
+| SmartSqlMapConfig.xsd  | [SmartSqlMapConfig.xsd](https://raw.githubusercontent.com/Ahoo-Wang/SmartSql/master/doc/Schema/SmartSqlMapConfig.xsd) |
+| SmartSqlMap.xsd        |   [SmartSqlMap.xsd](https://raw.githubusercontent.com/Ahoo-Wang/SmartSql/master/doc/Schema/SmartSqlMap.xsd)   |
+
+![智能提示](../imgs/intellisense.png)
+
 ``` powershell
 Install-Package SmartSql
-Install-Package SmartSql.Schema
 // 以及相应ADO.NET驱动
 ```
 
@@ -159,7 +177,8 @@ SmartSqlBuilder 的最佳作用域是应用作用域。 可以使用单例模式
 ``` csharp
 var dbSessionFactory = new SmartSqlBuilder()
     .UseXmlConfig()
-    .Build().GetDbSessionFactory();
+    .Build()
+    .GetDbSessionFactory();
 
     using (var dbSession = dbSessionFactory.Open())
     {
@@ -295,4 +314,15 @@ var recordsAffected = dbSession.DeleteMany<User, long>(new long[] { id0, id1, id
 
 ``` csharp
 var entity = dbSession.GetById<User, long>(id);
+```
+
+## ISqlMapper
+
+> ISqlMapper 接口提供了与IDbSession一致的接口函数，但是ISqlMapper不需要显式的通过DbSessionFactory来创建DbSession，ISqlMapper 内部依赖IDbSessionStore来管理DbSession，开启/释放DbSession的原则为：“谁开启，谁负责释放”。
+
+``` csharp
+var sqlMapper = new SmartSqlBuilder()
+               .UseXmlConfig()
+               .Build()
+               .GetSqlMapper();
 ```
