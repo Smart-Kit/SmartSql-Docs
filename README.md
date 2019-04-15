@@ -12,7 +12,7 @@ sidebar: auto
 
 ## 主要特性
 
-![SmartSql特性](../imgs/SmartSql-features.png)
+![SmartSql特性](./docs/imgs/SmartSql-features.png)
 
 ## 示例项目
 
