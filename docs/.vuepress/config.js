@@ -1,6 +1,18 @@
 module.exports = {
+    locales: {
+        '/': {
+            lang: 'zh-CN',
+            title: 'SmartSql',
+            description: '高性能、高生产力，超轻量级的ORM。SmartSql = MyBatis + Cache(Memory | Redis) + R/W Splitting +Dynamic Repository + Diagnostics'
+        },
+        '/en/': {
+            lang: 'en-US',
+            title: 'VuePress',
+            description: 'High performance, high productivity, ultra lightweight ORM. SmartSql = MyBatis + Cache(Memory | Redis) + R/W Splitting +Dynamic Repository + Diagnostics'
+        }
+    },
     title: 'SmartSql',
-    description: '高性能、高生产力，超轻量级的ORM。SmartSql = MyBatis + Cache(Memory | Redis) + ZooKeeper + R/W Splitting +Dynamic Repository',
+    description: '高性能、高生产力，超轻量级的ORM。SmartSql = MyBatis + Cache(Memory | Redis) + ZooKeeper + R/W Splitting + Dynamic Repository',
     head: [
         ['meta', {
             name: 'keywords',
@@ -13,39 +25,60 @@ module.exports = {
     themeConfig: {
         repo: 'Smart-Kit/SmartSql',
         docsRepo: 'Smart-Kit/SmartSql-Docs',
+        editLinkText: '帮助我们改善此页面！',
         editLinks: true,
         docsDir: 'docs',
-        nav: [
-            { text: '指南', link: '/guide/' }
-            , { text: '配置', link: '/config/' }
-            , { text: '动态仓储', link: '/dyrepository/' }
-            , { text: 'FAQ', link: '/faq/' }
-            , { text: 'SmartCode', link: 'https://github.com/Smart-Kit/SmartCode' }
-            , {
-                text: '选择语言',
-                items: [{
-                    text: '中文',
-                    link: '/'
-                },
-                {
-                    text: '英文',
-                    link: '/en/'
+        locales: {
+            '/': {
+                label: '简体中文',
+                selectText: '选择语言',
+                editLinkText: '在 GitHub 上编辑此页',
+                lastUpdated: '上次更新',
+                nav: [
+                    { text: '指南', link: '/guide/' }
+                    , { text: '配置', link: '/config/' }
+                    , { text: '动态仓储', link: '/dyrepository/' }
+                    , { text: 'FAQ', link: '/faq/' }
+                    , { text: 'SmartCode', link: 'https://github.com/Smart-Kit/SmartCode' }
+                    , { text: 'v3', link: 'https://v3.smartsql.net/' }
+                    ],
+                sidebar: {
+                    '/guide/': getGuideSidebar('指南', '深入'),
+                    '/config/':['','sqlmap'],
+                    '/dyrepository/': ['','options'],
+                    '/faq/': ['','performance-test']
                 }
-                ]
-            }],
-        sidebar: {
-            '/guide/': getGuideSidebar('指南', '深入'),
-            '/dyrepository/': getDyRepositorySidebar('介绍', '配置')
+            },
+            '/en/': {
+                label: 'English',
+                selectText: 'Languages',
+                editLinkText: 'Edit this page on GitHub',
+                lastUpdated: 'Last Updated',
+                nav: [
+                    { text: 'Guide', link: '/guide/' }
+                    , { text: 'Config Reference', link: '/config/' }
+                    , { text: 'Dynamic Repository', link: '/dyrepository/' }
+                    , { text: 'FAQ', link: '/faq/' }
+                    , { text: 'SmartCode', link: 'https://github.com/Smart-Kit/SmartCode' }
+                    , { text: 'v3', link: 'https://v3.smartsql.net/' }
+                    ],
+                sidebar: {
+                    '/guide/': getGuideSidebar('Guide', 'Advanced'),
+                    '/config/':['','sqlmap'],
+                    '/dyrepository/': ['','options'],
+                    '/faq/': ['','performance-test']
+                }
+            }
         }
     },
-    plugins: 
-    [
-        ['@vuepress/back-to-top', true],
-        ['@vuepress/medium-zoom', true],
-        ['@vuepress/google-analytics', {
-        ga: 'UA-122662513-1'
-        }]
-    ]
+    plugins:
+        [
+            ['@vuepress/back-to-top', true],
+            ['@vuepress/medium-zoom', true],
+            ['@vuepress/google-analytics', {
+                ga: 'UA-122662513-1'
+            }]
+        ]
 }
 
 function getGuideSidebar(groupA, groupB) {
@@ -67,20 +100,6 @@ function getGuideSidebar(groupA, groupB) {
                 'dy-repository',
                 'type-handler'
             ]
-        }
-    ]
-}
-function getDyRepositorySidebar(groupA, groupB) {
-    return [
-        {
-            title: groupA,
-            collapsable: false,
-            link: ''
-        },
-        {
-            title: groupB,
-            collapsable: false,
-            link: 'options'
         }
     ]
 }
