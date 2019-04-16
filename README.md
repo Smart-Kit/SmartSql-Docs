@@ -14,6 +14,10 @@ sidebar: auto
 
 ![SmartSql特性](./docs/imgs/SmartSql-features.png)
 
+## 使用 [SmartCode](https://github.com/dotnetcore/SmartCode) 直接体验 [SmartSql](https://github.com/Smart-Kit/SmartSql)
+
+![SmartCode](./docs/imgs/SmartCode-Db-1.gif)
+
 ## 示例项目
 
 >建议感兴趣的同学可以用 [SmartCode](https://github.com/Ahoo-Wang/SmartCode) 配置好数据库链接，生成解决方案，直接 Run 来体验 SmartSql !
