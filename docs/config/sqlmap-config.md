@@ -5,28 +5,54 @@
 ``` xml
 <?xml version="1.0" encoding="utf-8" ?>
 <SmartSqlMapConfig xmlns="http://SmartSql.net/schemas/SmartSqlMapConfig.xsd">
-  <Settings IsWatchConfigFile="true" />
+  <Settings IgnoreParameterCase="false" ParameterPrefix="$" IsCacheEnabled="true"/>
+  <Properties>
+    <Property Name="JsonTypeHandler`" Value="SmartSql.TypeHandler.JsonTypeHandler`1,SmartSql.TypeHandler"/>
+    <Property Name="JsonTypeHandler" Value="SmartSql.TypeHandler.JsonTypeHandler,SmartSql.TypeHandler"/>
+    <Property Name="EnumTypeHandler" Value="SmartSql.TypeHandlers.EnumTypeHandler`1, SmartSql"/>
+    <Property Name="ScriptBuilder" Value="SmartSql.ScriptTag.ScriptBuilder,SmartSql.ScriptTag"/>
+  </Properties>
   <Database>
     <DbProvider Name="SqlServer"/>
-    <Write Name="WriteDB" ConnectionString="Data Source=.;database=TestDB;uid=sa;pwd=SmartSql.net"/>
-    <Read Name="ReadDB-0" ConnectionString="Data Source=.;database=TestDB;uid=sa;pwd=SmartSql.net" Weight="80"/>
-    <Read Name="ReadDB-1" ConnectionString="Data Source=.;database=TestDB;uid=sa;pwd=SmartSql.net" Weight="20"/>
+    <Write Name="WriteDB" ConnectionString="${ConnectionString}"/>
+    <Read Name="ReadDb-1" ConnectionString="${ConnectionString}" Weight="100"/>
+    <Read Name="ReadDb-2" ConnectionString="${ConnectionString}" Weight="100"/>
   </Database>
   <TypeHandlers>
-    <TypeHandler Name="Json" Type="SmartSql.TypeHandler.JsonTypeHandler,SmartSql.TypeHandler"/>
+    <TypeHandler Name="Json" Type="${JsonTypeHandler}">
+      <Properties>
+        <Property Name="DateFormat" Value="yyyy-MM-dd mm:ss"/>
+        <Property Name="NamingStrategy" Value="Camel"/>
+      </Properties>
+    </TypeHandler>
+    <TypeHandler PropertyType="SmartSql.Test.Entities.UserInfo,SmartSql.Test" Type="${JsonTypeHandler`}">
+      <Properties>
+        <Property Name="DateFormat" Value="yyyy-MM-dd mm:ss"/>
+        <Property Name="NamingStrategy" Value="Camel"/>
+      </Properties>
+    </TypeHandler>
+    <TypeHandler PropertyType="SmartSql.Test.Entities.NumericalEnum,SmartSql.Test" Type="${EnumTypeHandler}"/>
   </TypeHandlers>
+  <TagBuilders>
+    <TagBuilder Name="Script" Type="${ScriptBuilder}"/>
+  </TagBuilders>
+  <IdGenerator Type="SnowflakeId">
+    <Properties>
+      <Property Name="WorkerIdBits" Value="10"/>
+      <Property Name="WorkerId" Value="888"/>
+      <Property Name="Sequence" Value="14"/>
+    </Properties>
+  </IdGenerator>
   <SmartSqlMaps>
     <SmartSqlMap Path="Maps" Type="Directory"></SmartSqlMap>
   </SmartSqlMaps>
 </SmartSqlMapConfig>
-
 ```
 
 ## Settings 标签属性
 
 | 属性           |    说明   |
 | :---------     | --------:|
-| IsWatchConfigFile  | 是否监控配置文件,用于配置文件热更新,默认为 false |
 | ParameterPrefix | 全局参数前缀,默认使用 $ 适配所有DB |
 | IgnoreParameterCase | 忽略参数大小写 |
 | IsCacheEnabled| 是否开启缓存 |
@@ -43,11 +69,11 @@
 
 ### DbProvider 标签
 
-| 属性           |    说明   |
-| :---------     | --------:|
-| Name  | 名称标识,可用于**Env**标签的DB环境识别 |
-| ParameterPrefix | 参数前缀:[SqlServer:@ ; MySQL:? ; Oracle::] |
-| Type | 类型 |
+| 属性           |    说明   |    是否必填   |
+| :---------     | --------:|--------:|
+| Name  | 名称标识,目前内置了：SqlServer/MySQL/Oracle/PostgreSql/SQLite |是|
+| ParameterPrefix | 参数前缀:[SqlServer:@ ; MySQL:? ; Oracle::] |否|
+| Type | 类型 |否|
 
 ### Write 标签
 
