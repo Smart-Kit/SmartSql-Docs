@@ -1,5 +1,7 @@
 # SmartSqlMap
 
+> SmartSql 的真正强大在于它的映射语句，这是它的魔力所在。由于它的异常强大，映射器的 XML 文件就显得相对简单。如果拿它跟具有相同功能的 ADO.NET 代码进行对比，你会立即发现省掉了将近 96% 代码量， SmartSql 为聚焦于 SQL 而构建，以尽可能地为你减少麻烦，这也是和其他ORM本质区别所在。
+
 | 属性       |    说明   |
 | :--------- | --------:|
 | Scope    | 域,用于SqlMap定义Sql声明范围  |
@@ -98,8 +100,8 @@
 
 | 标签           |    真条件   |
 | :---------     | --------:|
-| IsEmpty        | null or 空字符串 or 空IEnumerable |
 | IsNotEmpty     | !(null or 空字符串 or 空IEnumerable)         |
+| IsEmpty        | null or 空字符串 or 空IEnumerable |
 | IsEqual        | 与比较值相等 |
 | IsNotEqual     | 参数不等于比较值    |
 | IsTrue         | 参数为 true         |
@@ -116,11 +118,42 @@
 | Defalut        | Switch标签的子标签,未命中任何Case子标签时命中此标签  |
 
 ### Tag标签 公共属性
+
 | 属性       |    说明   |
 | :--------- | --------:|
 | Prepend    | 前缀（选填）  |
 | Property    | 属性 （必填） |
-| Required    | 严格模式：1或true 则必须存在，如无此参数则报错 （选填，默认0） |
+| Required    | 严格模式：1或true 则此属性必须存在，如无此参数则报错 （选填，默认0） |
+
+### IsNotEmpty
+
+``` xml
+      <IsNotEmpty Prepend="And" Property="FLong">
+        T.FLong=@FLong
+      </IsNotEmpty>
+```
+
+> 调用
+>
+>  ``` c#
+>       DbSession.Query<Object>(new RequestContext
+>       {
+>           Scope = nameof(IsNotEmptyTest),
+>           SqlId = "GetEntity",
+>           Request = new { FLong = 1 }
+>       });
+> ```
+
+> 转换Sql
+>
+> ``` sql
+> SELECT
+>	* 
+> FROM
+>	T_Entity T 
+> WHERE
+>	T.FLong =1
+> ```
 
 ### IsEmpty
 
@@ -128,14 +161,6 @@
       <IsEmpty Prepend="And" Property="Name" Required="1">
         T.Name=@Name
       </IsEmpty>
-``` 
-
-### IsNotEmpty
-
-``` xml
-      <IsNotEmpty Prepend="And" Property="Name">
-        T.Name=@Name
-      </IsNotEmpty>
 ``` 
 
 ### IsEqual
@@ -250,6 +275,47 @@
 | Where      | 继承至Dynamic,用于包裹筛选标签,匹配的第一个筛选标签前缀被忽略,并添加 Where 前缀|
 | Set      | 继承至Dynamic,用于Update,包裹筛选标签,匹配的第一个筛选标签前缀被忽略,并添加 Set 前缀,必须匹配至少一个子标签，否则将抛出SmartSqlException异常。|
 | Placeholder    | 占位符标签，用于替换参数键值 |
+
+### Env
+
+> 鉴于部署对于不同DB环境的配置或语法有不同，为了让一套代码适应多种DB场景，可以用此标签。
+
+``` xml
+    <Statement Id="GetEntity">
+      Select * From T_Entity T
+      <Where>
+        <Env DbProvider="SqlServer" Prepend="And">
+          <IsNotEmpty  Property="FLong">
+            T.FLong=@FLong
+          </IsNotEmpty>
+        </Env>
+        <Env DbProvider="Mysql" Prepend="And">
+          <IsNotEmpty Property="FLong">
+            T.FLong=?FLong
+          </IsNotEmpty>
+          limit 1
+        </Env>
+      </Where>
+    </Statement>
+```
+
+### Include
+
+> 这个元素可以被用来定义可重用的 SQL 代码段，这些 SQL 代码可以被包含在其他语句中。常用场景：公共的查询条件。比如下面代码中的Query 引用了 QueryParams 代码段。
+
+``` xml
+    <Statement Id="QueryParams">
+      <IsNotEmpty  Property="FLong">
+        T.FLong=@FLong
+      </IsNotEmpty>
+    </Statement>
+    <Statement Id="Query">
+      Select * From T_Entity T
+      <Where>
+        <Include Prepend="And" RefId="QueryParams" Required="1"/>
+      </Where>
+    </Statement>
+```
 
 ## Cache 标签
 
