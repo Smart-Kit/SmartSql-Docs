@@ -3,6 +3,18 @@
 | 属性       |    说明   |
 | :--------- | --------:|
 | Scope    | 域,用于SqlMap定义Sql声明范围  |
+| xmlns    | 命名空间,固定值："http://SmartSql.net/schemas/SmartSqlMap.xsd"  |
+
+## SmartSqlMap 子标签
+
+| 属性       |    说明   |
+| :--------- | --------:|
+| ParameterMaps    | 参数映射（ParameterMap）集  |
+| Caches    | 缓存策略（Cache）集  |
+| Statements    | 语句（Statement）集  |
+| ResultMaps    | 结果映射（ResultMap）集  |
+| MultipleResultMaps    | 多结果映射（MultipleResultMap）集  |
+
 
 ## ResultMap
 
@@ -87,21 +99,145 @@
 | 标签           |    真条件   |
 | :---------     | --------:|
 | IsEmpty        | null or 空字符串 or 空IEnumerable |
+| IsNotEmpty     | !(null or 空字符串 or 空IEnumerable)         |
 | IsEqual        | 与比较值相等 |
+| IsNotEqual     | 参数不等于比较值    |
+| IsTrue         | 参数为 true         |
 | IsFalse        | 参数为 false  |
 | IsGreaterEqual | 参数大于等于比较值     |
 | IsGreaterThan  | 参数大于比较值        |
 | IsLessEqual    | 参数小于等于比较值    |
 | IsLessThan     | 参数小于比较值        |
-| IsNotEmpty     | !(null or 空字符串 or 空IEnumerable)         |
-| IsNotEqual     | 参数不等于比较值    |
 | IsNotNull      | 参数不等于 null  |
 | IsNull         | 参数等于 null    |
 | IsProperty     | 查询对象包含属性名 |
-| IsTrue         | 参数为 true         |
 | Switch         | Switch 标签      |
 | Case           | Switch标签的子标签,等于比较值 |
 | Defalut        | Switch标签的子标签,未命中任何Case子标签时命中此标签  |
+
+### Tag标签 公共属性
+| 属性       |    说明   |
+| :--------- | --------:|
+| Prepend    | 前缀（选填）  |
+| Property    | 属性 （必填） |
+| Required    | 严格模式：1或true 则必须存在，如无此参数则报错 （选填，默认0） |
+
+### IsEmpty
+
+``` xml
+      <IsEmpty Prepend="And" Property="Name" Required="1">
+        T.Name=@Name
+      </IsEmpty>
+``` 
+
+### IsNotEmpty
+
+``` xml
+      <IsNotEmpty Prepend="And" Property="Name">
+        T.Name=@Name
+      </IsNotEmpty>
+``` 
+
+### IsEqual
+
+``` xml
+      <IsEqual Prepend="And" Property="Name">
+        T.Name=1
+      </IsEqual>
+``` 
+
+### IsNotEqual
+
+``` xml
+      <IsNotEqual Prepend="And" Property="Name">
+        T.Name=1
+      </IsNotEqual>
+``` 
+
+### IsTrue
+
+``` xml
+        <IsTrue Prepend="And" Property="FBool">
+          T.FBool=1
+        </IsTrue>
+```
+
+### IsFalse
+
+``` xml
+        <IsFalse Prepend="And" Property="FBool">
+          T.FBool=0
+        </IsFalse>
+```
+
+### IsGreaterEqual
+
+``` xml
+        <IsGreaterEqual Prepend="And" Property="FInt" CompareValue="0">
+          T.FInt=@FInt
+        </IsGreaterEqual> 
+```
+
+### IsGreaterThan
+
+``` xml
+        <IsGreaterThan Prepend="And" Property="FInt" CompareValue="0">
+          T.FInt=@FInt
+        </IsGreaterThan> 
+```
+
+### IsLessEqual
+
+``` xml
+        <IsLessEqual Prepend="And" Property="FInt" CompareValue="0">
+          T.FInt=@FInt
+        </IsLessEqual> 
+```
+
+### IsLessThan
+
+``` xml
+        <IsLessThan Prepend="And" Property="FInt" CompareValue="0">
+          T.FInt=@FInt
+        </IsLessThan> 
+```
+
+### IsNotNull
+
+``` xml
+        <IsNotNull Prepend="And" Property="NullStatus">
+          T.NullStatus=@NullStatus
+        </IsNotNull>
+```
+
+### IsNull
+
+``` xml
+        <IsNull Prepend="And" Property="NullStatus">
+          T.NullStatus=@NullStatus
+        </IsNull>
+```
+
+### IsProperty
+
+``` xml
+        <IsProperty Prepend="And" Property="NullStatus">
+          T.NullStatus=@NullStatus
+        </IsProperty>
+```
+
+### Switch-Case-Default
+
+``` xml
+ <Switch Prepend="Order By" Property="OrderBy">
+        <Case CompareValue="1">
+          T.SortId ASC
+        </Case>
+        <Default>
+          T.SortId Desc,Id Asc
+        </Default>
+      </Switch>
+```
 
 ## Statement 其他子标签
 
