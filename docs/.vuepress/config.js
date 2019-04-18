@@ -134,7 +134,10 @@ function getGuideSidebar(groupA, groupB) {
             collapsable: false,
             children: [
                 'dy-repository',
-                'type-handler'
+                'type-handler',
+                'id-generator',
+                'redis-cache',
+                'skyapm'
             ]
         }
     ]
