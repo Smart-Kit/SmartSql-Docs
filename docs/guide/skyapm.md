@@ -1,6 +1,8 @@
-# SkyApm 监控
+# Skywalking 监控
 
-## 查询
+SmartSql 目前支持 Skywalking 监控，通过安装 [SkyAPM-dotnet](https://github.com/SkyAPM/SkyAPM-dotnet) 代理来启用。以下是部分截图。
+
+## 监控执行命令
 
 ![Query](../imgs/skyapm-0.png)
 
