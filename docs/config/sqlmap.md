@@ -271,8 +271,8 @@
 | Env        | 用于判断全局变量 DbProvider |
 | Include    | 引用外部Statement     |
 | Dynamic    | 动态标签,用于包裹筛选标签,匹配的第一个筛选标签的前缀将忽略 |
-| For        | 用于参数为IEnumerable,遍历参数动态拼接Sql |
 | Where      | 继承至Dynamic,用于包裹筛选标签,匹配的第一个筛选标签前缀被忽略,并添加 Where 前缀|
+| For        | 用于参数为IEnumerable,遍历参数动态拼接Sql |
 | Set      | 继承至Dynamic,用于Update,包裹筛选标签,匹配的第一个筛选标签前缀被忽略,并添加 Set 前缀,必须匹配至少一个子标签，否则将抛出SmartSqlException异常。|
 | Placeholder    | 占位符标签，用于替换参数键值 |
 
@@ -317,6 +317,164 @@
     </Statement>
 ```
 
+### Dynamic
+
+> 此元素用来包裹标签集合，来进行对标签动态生成。让内部标签有统一的风格。
+>> 注：Dynamic会清除内部第一层第一个标签的Prepend，自身也可以添加Prepend.
+
+``` xml
+<Statement Id="GetUser">
+      Select * From T_User T
+      <Dynamic Prepend="Where">
+        <IsNotEmpty Prepend="And" Property="UserName">
+          T.UserName=@UserName
+        </IsNotEmpty>
+      </Dynamic>
+    </Statement>
+```
+
+#### 调用
+
+``` c#
+ var user = SqlMapper.QuerySingle<User>(new RequestContext
+  {
+      Scope = nameof(DynamicTest),
+      SqlId = "GetUser",
+      Request = new { UserName = "SmartSql" }
+  });
+```
+
+#### 生成的Sql
+
+``` sql
+SELECT
+	* 
+FROM
+	T_User T 
+WHERE
+	T.UserName ='SmartSql'
+```
+
+### Where 
+
+> 此标签继承于Dynamic 等价于 形式： **Dynamic Prepend="Where"** 同样会去除第一层子标签Prepend。
+
+#### 配置：
+
+``` xml
+    <Statement Id="GetUser">
+      Select * From T_User T
+      <Where>
+        <IsNotEmpty Prepend="And" Property="UserName">
+          T.UserName=@UserName
+        </IsNotEmpty>
+      </Where>
+    </Statement>
+
+```
+
+#### 调用
+
+``` c#
+  var user = SqlMapper.QuerySingle<User>(new RequestContext
+  {
+      Scope = nameof(WhereTest),
+      SqlId = "GetUser",
+      Request = new { UserName = "SmartSql" }
+  });
+```
+
+#### 生成Sql
+
+``` sql
+SELECT
+	* 
+FROM
+	T_User T 
+WHERE
+	T.UserName ='SmartSql'
+```
+
+### Set
+> 此标签继承于Dynamic 等价于 形式： **Dynamic Prepend="Set"** 同样会去除第一层子标签Prepend。
+
+``` xml
+ <Statement Id="UpdateUser">
+      Update T_User
+      <Set>
+        <IsProperty Prepend="," Property="UserName">
+          UserName=@UserName
+        </IsProperty>
+        <IsProperty Prepend="," Property="Status">
+          Status=@Status
+        </IsProperty>
+      </Set>
+      Where Id=@Id
+    </Statement>
+```
+
+#### 调用
+
+``` c#
+ var iRows = SqlMapper.Execute(new RequestContext
+  {
+      Scope = nameof(SetTest),
+      SqlId = "UpdateUser",
+      Request = new { UserName = "MySmartSql",Status=1,Id=1 }
+  });
+
+```
+
+#### 生成Sql
+
+``` sql
+UPDATE T_User 
+SET 
+UserName = 'SmartSql'
+,Status = 1 
+WHERE
+	Id =1
+```
+
+### Placeholder
+
+> 替换字符串占位符 （此标签直接会以字符串的形式替换标签位，所以存在Sql注入的风险）
+
+``` xml
+    <Statement Id="Query">
+     Select * from T_User as T
+     Where T.Id in(
+     <Placeholder Property="Placeholder"></Placeholder>
+     )
+    </Statement>
+```
+
+#### 调用
+
+``` c#
+
+ var UserList = SqlMapper.Query<User>(new RequestContext
+  {
+      Scope = nameof(PlaceholderTest),
+      SqlId = "Query",
+      Request = new { Placeholder= "Select TUE.UserId From T_UserExtendedInfo as TUE" }
+  });
+
+```
+
+#### 生成Sql
+
+``` sql
+
+SELECT
+	* 
+FROM
+	T_User AS T 
+WHERE
+	T.ID IN ( SELECT TUE.UserId FROM T_UserExtend AS TUE )
+
+```
+
 ## Cache 标签
 
 | 属性       |    说明   |
@@ -330,7 +488,7 @@
 | :---------     | --------:|
 | FlushInterval  | 定时刷新策略 |
 | FlushOnExecute | 事件触发策略 |
-| Parameter | 作为 ICacheProvider 初始化参数  |
+| Property | 作为 ICacheProvider 初始化参数  |
 
 ### FlushInterval
 
@@ -352,6 +510,32 @@
 | :--------- | --------:|
 | Key    | 键  |
 | Value    | 值  |
+
+``` xml
+
+  <Caches>
+    <Cache Id="LruCache" Type="Lru">
+      <Property Name="CacheSize" Value="10"/>
+      <FlushOnExecute Statement="AllPrimitive.Insert"/>
+      <FlushInterval Hours="1" Minutes="0" Seconds="0"/>
+    </Cache>
+    <Cache Id="FifoCache" Type="Fifo">
+      <Property Name="CacheSize" Value="10"/>
+    </Cache>
+    <Cache Id="RedisCache" Type="${RedisCacheProvider}">
+      <Property Name="ConnectionString" Value="${Redis}" />
+      <FlushInterval Seconds="60"/>
+    </Cache>
+  </Caches>
+
+  ...
+
+   <Statement Id="QueryByLruCache"  Cache="LruCache">
+      SELECT Top 6 T.* From T_AllPrimitive T;
+    </Statement>
+
+```
+
 
 ## For 标签
 
@@ -396,36 +580,36 @@
 
 ``` csharp
 var items = new List<T_Entity> {
-                new T_Entity
-                {
-                    CreationTime = DateTime.Now,
-                    FBool = true,
-                    FDecimal = 1,
-                    FLong = 1,
-                    FNullBool = false,
-                    FString = Guid.NewGuid().ToString("N"),
-                    FNullDecimal = 1.1M,
-                    LastUpdateTime = DateTime.Now,
-                    Status = EntityStatus.Ok
-                },new T_Entity
-                {
-                    CreationTime = DateTime.Now,
-                    FBool = true,
-                    FDecimal = 1,
-                    FLong = 1,
-                    FNullBool = false,
-                    FString = Guid.NewGuid().ToString("N"),
-                    FNullDecimal = 1.1M,
-                    LastUpdateTime = DateTime.Now,
-                    Status = EntityStatus.Ok
-                }
-            };
-            _sqlMapper.Execute(new RequestContext
-            {
-                Scope = Scope,
-                SqlId = "InsertBatch",
-                Request = new { Items = items }
-            });
+new T_Entity
+{
+    CreationTime = DateTime.Now,
+    FBool = true,
+    FDecimal = 1,
+    FLong = 1,
+    FNullBool = false,
+    FString = Guid.NewGuid().ToString("N"),
+    FNullDecimal = 1.1M,
+    LastUpdateTime = DateTime.Now,
+    Status = EntityStatus.Ok
+},new T_Entity
+{
+    CreationTime = DateTime.Now,
+    FBool = true,
+    FDecimal = 1,
+    FLong = 1,
+    FNullBool = false,
+    FString = Guid.NewGuid().ToString("N"),
+    FNullDecimal = 1.1M,
+    LastUpdateTime = DateTime.Now,
+    Status = EntityStatus.Ok
+}
+};
+_sqlMapper.Execute(new RequestContext
+{
+Scope = Scope,
+SqlId = "InsertBatch",
+Request = new { Items = items }
+});
 ```
 
 #### 多 Like 查询
