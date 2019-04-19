@@ -15,7 +15,7 @@ SmartSql将管理你的SQL，并且通过筛选标签来维护本来你在代码
 - [自动生成 CUD 代码](./getting-started.md#idbsession-cud)
 - [Id生成器](./id-generator.md)
 - [性能诊断](./skyapm.md)
-- AOP 级别的事物
+- [AOP 级别的事物](./aop.md)
 - [缓存（内存，分布式缓存）](../config/sqlmap.md#cache-标签)
 - [读写分离](../config/README.md#database-子标签)
 - 代码生成器(<https://github.com/dotnetcore/SmartCode>)
