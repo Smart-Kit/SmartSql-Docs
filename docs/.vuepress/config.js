@@ -136,6 +136,7 @@ function getGuideSidebar(groupA, groupB) {
                 'dy-repository',
                 'type-handler',
                 'id-generator',
+                'bulk',
                 'redis-cache',
                 'skyapm'
             ]
