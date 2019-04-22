@@ -114,6 +114,6 @@
 | 属性           |    说明   |
 | :---------     | --------:|
 | Path  | 用于定位 SmartSqlMap 文件/目录 位置 |
-| Type | 枚举类型:File/Directory,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件 |
+| Type | 枚举类型:File/Directory/DirectoryWithAllSub/Uri/Embedded,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件 |
 
 ---

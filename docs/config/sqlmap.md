@@ -135,7 +135,7 @@
 
 > 调用
 >
->  ``` c#
+>  ``` csharp
 >       DbSession.Query<Object>(new RequestContext
 >       {
 >           Scope = nameof(IsNotEmptyTest),
@@ -335,7 +335,7 @@
 
 #### 调用
 
-``` c#
+``` csharp
  var user = SqlMapper.QuerySingle<User>(new RequestContext
   {
       Scope = nameof(DynamicTest),
@@ -375,7 +375,7 @@ WHERE
 
 #### 调用
 
-``` c#
+``` csharp
   var user = SqlMapper.QuerySingle<User>(new RequestContext
   {
       Scope = nameof(WhereTest),
@@ -415,7 +415,7 @@ WHERE
 
 #### 调用
 
-``` c#
+``` csharp
  var iRows = SqlMapper.Execute(new RequestContext
   {
       Scope = nameof(SetTest),
@@ -451,7 +451,7 @@ WHERE
 
 #### 调用
 
-``` c#
+``` csharp
 
  var UserList = SqlMapper.Query<User>(new RequestContext
   {

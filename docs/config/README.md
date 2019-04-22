@@ -5,7 +5,7 @@
 ``` xml
 <?xml version="1.0" encoding="utf-8" ?>
 <SmartSqlMapConfig xmlns="http://SmartSql.net/schemas/SmartSqlMapConfig.xsd">
-  <Settings IsWatchConfigFile="true" />
+  <Settings/>
   <Database>
     <DbProvider Name="SqlServer"/>
     <Write Name="WriteDB" ConnectionString="Data Source=.;database=TestDB;uid=sa;pwd=SmartSql.net"/>

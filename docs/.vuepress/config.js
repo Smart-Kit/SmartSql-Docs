@@ -135,6 +135,7 @@ function getGuideSidebar(groupA, groupB) {
             children: [
                 'dy-repository',
                 'type-handler',
+                'aop',
                 'id-generator',
                 'bulk',
                 'redis-cache',
