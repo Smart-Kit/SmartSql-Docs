@@ -20,7 +20,6 @@ DotNet 体系下大都是 Linq 系的 ORM，Linq 很好，消除了开发人员�
 > 目前已加入 [NCC](https://github.com/dotnetcore)。
 > 未来([Roadmap-2019](https://github.com/dotnetcore/SmartSql/issues/47)) SmartSql 也会持续加入一些新的特性来帮助开发者提升效率。欢迎提交 Issue <https://github.com/dotnetcore/SmartSql/issues>。
 
-
 ## 那么为什么不是 Dapper，或者 DbHelper ？
 
 Dapper 确实很好，并且又很好的性能，但是会让给你的代码里边充斥着 SQL 和各种判断分支，这些将会使代码维护难以阅读和维护。另外 Dapper 只提供了DataReader 到 Entity 的反序列化功能。而 SmartSql 提供了大量的特性来提升开发者的效率。
@@ -287,9 +286,9 @@ var id = SqlMapper.ExecuteScalar<long>(new RequestContext
         }
 ```
 
-### 事物嵌套
+### 事务嵌套
 
-> 当出现事物嵌套时，子函数的事物特性注解将不再开启，转而使用上级调用函数的事物
+> 当出现事务嵌套时，子函数的事务特性注解将不再开启，转而使用上级调用函数的事务
 
 ``` csharp
         [Transaction]
