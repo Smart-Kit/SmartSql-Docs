@@ -67,9 +67,6 @@ module.exports = {
                 }, {
                     text: 'SmartCode',
                     link: 'https://github.com/Smart-Kit/SmartCode'
-                }, {
-                    text: 'v3',
-                    link: 'https://v3.smartsql.net/'
                 }],
                 sidebar: {
                     '/guide/': getGuideSidebar('指南', '深入'),
