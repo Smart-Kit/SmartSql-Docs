@@ -56,7 +56,7 @@ DyRepository 的表现是只需要定义仓储接口，通过简单配置就能�
     {
         IUserRepository userRepository;
 
-        public UserService(IActivityRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
