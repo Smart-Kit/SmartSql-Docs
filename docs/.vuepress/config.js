@@ -126,7 +126,8 @@ function getGuideSidebar(groupA, groupB) {
             collapsable: false,
             children: [
                 '',
-                'getting-started'
+                'getting-started',
+                'di'
             ]
         },
         {
