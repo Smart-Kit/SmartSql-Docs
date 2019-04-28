@@ -7,7 +7,7 @@ module.exports = {
         },
         '/en/': {
             lang: 'en-US',
-            title: 'VuePress',
+            title: 'SmartSql',
             description: 'High performance, high productivity, ultra lightweight ORM. SmartSql = MyBatis + Cache(Memory | Redis) + R/W Splitting +Dynamic Repository + Diagnostics'
         }
     },
@@ -82,28 +82,37 @@ module.exports = {
                 lastUpdated: 'Last Updated',
                 nav: [{
                     text: 'Guide',
-                    link: '/guide/'
+                    link: '/en/guide/'
                 }, {
                     text: 'Config Reference',
-                    link: '/config/'
+                    link: '/en/config/'
                 }, {
                     text: 'Dynamic Repository',
-                    link: '/dyrepository/'
+                    link: '/en/dyrepository/'
                 }, {
                     text: 'FAQ',
-                    link: '/faq/'
+                    items: [{
+                            text: 'Common Problems',
+                            link: '/en/faq/'
+                        },
+                        {
+                            text: 'Performance evaluation',
+                            link: '/en/faq/performance-test/'
+                        },
+                        {
+                            text: 'Update history',
+                            link: 'https://github.com/dotnetcore/SmartSql/releases'
+                        }
+                    ]
                 }, {
                     text: 'SmartCode',
                     link: 'https://github.com/Smart-Kit/SmartCode'
-                }, {
-                    text: 'v3',
-                    link: 'https://v3.smartsql.net/'
                 }],
                 sidebar: {
-                    '/guide/': getGuideSidebar('Guide', 'Advanced'),
-                    '/config/': ['', 'sqlmap'],
-                    '/dyrepository/': ['', 'options'],
-                    '/faq/': ['', 'performance-test']
+                    '/en/guide/': getGuideSidebar('Guide', 'Advanced'),
+                    '/en/config/': ['', 'sqlmap'],
+                    '/en/dyrepository/': ['', 'options'],
+                    '/en/faq/': ['', 'performance-test']
                 }
             }
         }
