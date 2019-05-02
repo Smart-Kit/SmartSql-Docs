@@ -92,7 +92,7 @@ DyRepository可以将任意一个接口实现出查询数据库的工具，CURD�
 
 ### 两种用法
 
-#### ISqlMapper 用法
+#### 1、ISqlMapper 用法
 
 如果不用DyRepository，我们需要用ISqlMapper实现这个仓储。
 
@@ -131,9 +131,9 @@ var services = new ServiceCollection();
 var services.AddSingleton<IActivityRepository,ActivityRepository>();
 ```
 
-#### DyRepository
+#### 2、DyRepository 动态仓储用法
 
-如果使用DyRepository，我们只需配置一下IoC注册即可。
+如果使用DyRepository，我们只需配置一下IoC即可。这样就能自动实现这些接口并注册到IoC容器中了。
 
 ``` csharp
     var services = new ServiceCollection();
@@ -142,6 +142,8 @@ var services.AddSingleton<IActivityRepository,ActivityRepository>();
         options.AssemblyString = "SmartSql.Starter.Repository";
     });
 ```
+
+_关于更多的IoC的配置，请参考[配置文档](options.html)。_
 
 #### 注入使用
 
@@ -163,9 +165,9 @@ var services.AddSingleton<IActivityRepository,ActivityRepository>();
             return activityRepository.Insert(activity);
         }
 
-        public int GetById(int id)
+        public Activity GetById(int id)
         {
-            return activityRepository.Insert(id);
+            return activityRepository.Query(id);
         }
     }
 
