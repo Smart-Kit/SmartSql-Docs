@@ -101,7 +101,7 @@ SmartSql.TypeHandler.PostgreSql 包括了如下类型处理程序:
 
 #### Statement对应的配置同上 
 
-### 为了进一步提升开发者对数据操作的开发效率，SmartSql还加入了Json泛型类型处理器，免去SqlMap文件映射关系的配置。具体配置如下：
+为了进一步提升开发者对数据操作的开发效率，SmartSql还加入了Json泛型类型处理器，免去SqlMap文件映射关系的配置。具体配置如下：
 
 #### SmartSqlMapConfig 子元素
 
