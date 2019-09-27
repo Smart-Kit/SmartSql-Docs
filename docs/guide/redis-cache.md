@@ -10,9 +10,9 @@ Install-Package SmartSql.Cache.Redis
 
 ``` xml
 <Cache Id="RedisCache" Type="SmartSql.Cache.Redis.RedisCacheProvider,SmartSql.Cache.Redis">
-  <Parameter Key="CacheSize" Value="1000"/>
-  <Parameter Key="ConnectionString" Value="192.168.31.103"/>
-  <Parameter Key="DatabaseId" Value="0"/>
+  <Property Name="CacheSize" Value="1000"/>
+  <Property Name="ConnectionString" Value="192.168.31.103"/>
+  <Property Name="DatabaseId" Value="0"/>
   <FlushInterval Hours="24" Minutes="0" Seconds="0"/>
   <FlushOnExecute Statement="Insert"/>
   <FlushOnExecute Statement="Update"/>
