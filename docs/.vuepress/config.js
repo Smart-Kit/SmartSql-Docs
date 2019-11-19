@@ -121,7 +121,7 @@ module.exports = {
         ['@vuepress/back-to-top', true],
         ['@vuepress/medium-zoom', true],
         ['@vuepress/google-analytics', {
-            ga: 'UA-122662513-1'
+            'ga': 'UA-122662513-1'
         }]
     ]
 }
