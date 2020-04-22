@@ -85,10 +85,10 @@
 ### SmartSqlMap 标签
 
 | 属性           |    说明   |
-| :---------     | --------:|
+| :---------     | :--------|
 | Path  | 用于定位 SmartSqlMap 文件/目录 位置 |
-| Type | 枚举类型:File/Directory/Embedded,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件,Embedded:为嵌入的资源(vs中右键你map的xml文件,选为嵌入的资源) |
-### SmartSqlMap 标签示例
+| Type | 枚举类型:File/Directory/Embedded,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件,<br>Embedded:为嵌入的资源(vs中右键你map的xml文件,选为嵌入的资源) |
+### SmartSqlConfig文件中SmartSqlMaps标签配置示例
 ```
   <SmartSqlMaps>
     <SmartSqlMap Path="解决方案名称.Maps.Client.xml" Type="Embedded" ></SmartSqlMap>
