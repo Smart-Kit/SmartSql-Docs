@@ -115,7 +115,7 @@
 | IsProperty     | 查询对象包含属性名 |
 | Switch         | Switch 标签      |
 | Case           | Switch标签的子标签,等于比较值 |
-| Defalut        | Switch标签的子标签,未命中任何Case子标签时命中此标签  |
+| Default        | Switch标签的子标签,未命中任何Case子标签时命中此标签  |
 
 ### Tag标签 公共属性
 
