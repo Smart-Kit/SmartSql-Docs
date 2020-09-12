@@ -29,15 +29,15 @@
 这里的 `@id` 是需要被替换的参数，那前缀是 @,?,#,: 中的哪一个呢？上面配置的是 $.
 出了使用配置的值，还可以使用数据库默认的前缀。
 
-| 数据库连接类型  | 前缀 |
-|-----------------|------|
-| SQLSERVER       | @    |
-| MS_SQLSERVER    | @    |
-| MYSQL           | ?    |
-| MYSQL_CONNECTOR | ?    |
-| POSTGRESQL      | @    |
-| ORACLE          | :    |
-| SQLITE          | @    |
+| 数据库连接类型  | 默认前缀 |
+|-----------------|----------|
+| SQLSERVER       | @        |
+| MS_SQLSERVER    | @        |
+| MYSQL           | ?        |
+| MYSQL_CONNECTOR | ?        |
+| POSTGRESQL      | @        |
+| ORACLE          | :        |
+| SQLITE          | @        |
 
 也可以针对数据源进行单独配置，如：
 这里使用的就是 #
@@ -80,15 +80,6 @@ SELECT * FROM T_User WHERE Id = #id
 
 ``` xml
 <SmartSqlMap Scope="User" xmlns="http://SmartSql.net/schemas/SmartSqlMap.xsd">
-    <Caches>
-        <Cache Id="UserCache" Type="Lru">
-            <FlushOnExecute Statement="Update"/>
-            <FlushOnExecute Statement="Delete"/>
-        </Cache>
-    </Caches>
-
-    <Statements>
-    </Statements>
 </SmartSqlMap>
 ```
 
