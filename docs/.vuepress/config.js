@@ -146,7 +146,8 @@ function getGuideSidebar(groupA, groupB) {
                 'id-generator',
                 'bulk',
                 'redis-cache',
-                'skyapm'
+                'skyapm',
+                'get-start-tips'
             ]
         }
     ]
