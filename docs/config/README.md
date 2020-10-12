@@ -86,14 +86,17 @@
 
 | 属性           |    说明   |
 | :---------     | :--------|
-| Path  | 用于定位 SmartSqlMap 文件/目录 位置 |
-| Type | 枚举类型:File/Directory/Embedded,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件,<br>Embedded:为嵌入的资源(vs中右键你map的xml文件,选为嵌入的资源) |
+| Path  | 用于定位 SmartSqlMap 文件/目录 位置  |
+| Type | 枚举类型:File/Directory/Embedded,File:为文件资源;Directory:为目录资源,取该目录下所有Map文件,<br>Embedded:为嵌入的资源(vs中右键你map的xml文件,选为嵌入的资源)，其Path标签应为是一个以1个英文逗号分隔的字符串，前一个为xml的的路径，一般为项目名称.文件夹名称.map.xml,后一个应该为项目名称 |
+### 注意事项###
+
 ### SmartSqlConfig文件中SmartSqlMaps标签配置示例
 ```
   <SmartSqlMaps>
-    <SmartSqlMap Path="解决方案名称.Maps.Client.xml" Type="Embedded" ></SmartSqlMap>
-    <SmartSqlMap Path="解决方案名称.Maps.Client.xml" Type="File" ></SmartSqlMap>
+    <SmartSqlMap Path="ProjectName.Maps.Client.xml,ProjectName" Type="Embedded" ></SmartSqlMap>
+    <SmartSqlMap Path="ProjectName.Maps.Client.xml" Type="File" ></SmartSqlMap>
     <SmartSqlMap Path="Maps" Type="Directory" ></SmartSqlMap>
   </SmartSqlMaps>
 ```
 ---
+
