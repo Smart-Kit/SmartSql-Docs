@@ -126,10 +126,17 @@
 | Required    | 严格模式：1或true 则此属性必须存在，如无此参数则报错 （选填，默认0） |
 
 ### IsNotEmpty
+> 针对IEnumerable类型参数的说明：
+> 1. 对于sql 中常见的in 操作可以使用此标签进行sql构造
+> 2. 例子中 Ids 也可以用 `List<long>{1,2,3}` 等价替换
+> 3. 对于生成的`内部逻辑`中部分中的名称为`@参数名_下标`格式的参数请避免前端业务中传递进来
 
 ``` xml
       <IsNotEmpty Prepend="And" Property="FLong">
         T.FLong=@FLong
+      </IsNotEmpty>
+      <IsNotEmpty Prepend="And" Property="Ids">
+          T.Id in @Ids
       </IsNotEmpty>
 ```
 
@@ -139,12 +146,24 @@
 >       DbSession.Query<Object>(new RequestContext
 >       {
 >           Scope = nameof(IsNotEmptyTest),
->           SqlId = "GetEntity",
->           Request = new { FLong = 1 }
+>           SqlId = "Query",
+>           Request = new { FLong = 1,Ids=new long[]{1,2,3} }
 >       });
 > ```
 
-> 转换Sql
+> （内部逻辑）参数绑定前sql
+>
+> ``` sql
+> SELECT
+>	* 
+> FROM
+>	T_Entity T 
+> WHERE
+>	T.FLong =@FLong
+> And id In (@Ids_0,@Ids_1,@Ids_2)
+> ```
+
+> 最终转换Sql
 >
 > ``` sql
 > SELECT
@@ -153,6 +172,7 @@
 >	T_Entity T 
 > WHERE
 >	T.FLong =1
+> And id In (1,2,3)
 > ```
 
 ### IsEmpty
