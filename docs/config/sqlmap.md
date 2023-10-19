@@ -43,6 +43,7 @@
 ``` xml
     <ParameterMap Id="UserExtendParameterMap">
       <Parameter Property="Info" TypeHandler="Json"/>
+      <Parameter Property="LastLockTime" DbType="DateTime2"/>
     </ParameterMap>
 ```
 
@@ -56,6 +57,7 @@
 | :--------- | --------:|
 | Property    | 属性名  |
 | TypeHandler    | 类型处理器，内置（Json/Xml）  |
+| DbType    | 数据库类型  |
 
 ## MultipleResultMap
 
